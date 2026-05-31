@@ -6,9 +6,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import Budget from './Budget';
 import TransactionList from './TransactionList';
+import TransactionForm from './TransactionForm';
 
 export default function BudgetDisplay() {
   return (
@@ -23,7 +23,7 @@ export default function BudgetDisplay() {
       <CardFooter>
         <div className="flex flex-col items-center gap-2">
           <TransactionList />
-          <Button variant="outline" className="w-full">Einzahlung / Auszahlung</Button>
+          <TransactionForm />
         </div>
       </CardFooter>
     </Card>

@@ -62,7 +62,7 @@ export default function TransactionList() {
           />
 
           {/* modal */}
-          <div className="relative w-[92vw] sm:w-[70vw] lg:w-[55vw] max-w-4xl bg-white rounded-lg shadow-xl flex flex-col">
+          <div className="relative h-[70vh] w-[92vw] sm:w-[70vw] lg:w-[55vw] max-w-4xl bg-white rounded-lg shadow-xl flex flex-col">
 
             {/* header */}
             <div className="p-4 flex justify-between items-center bg-white">
@@ -77,7 +77,7 @@ export default function TransactionList() {
             </div>
 
             {/* body */}
-            <div className="px-4 pb-4 h-96 overflow-y-auto  scrollbar-thumb-sky-700 scrollbar-track-sky-100 bg-white">
+            <div className="px-4 pb-4 h-[70vh] overflow-y-auto  scrollbar-thumb-sky-700 scrollbar-track-sky-100 bg-white">
               <table className="w-full text-sm">
                 <thead className="sticky top-0 bg-blue-50 text-xs uppercase text-gray-600 z-10">
                   <tr>
