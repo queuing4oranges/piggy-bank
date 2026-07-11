@@ -40,10 +40,12 @@ export default function Login() {
       <Card className="min-w-82 p-5">
         <CardHeader><CardTitle>Los, Passwort her!</CardTitle></CardHeader>
         <CardContent>
-          <Input
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <form action={login}>
+            <Input
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </form>
         </CardContent>
         <CardFooter className="flex justify-between">
           <Link href="/" className="btn rounded-md bg-gray-950/5 px-2.5 py-1.5 text-sm font-semibold text-gray-900 hover:bg-gray-950/10 flex">
