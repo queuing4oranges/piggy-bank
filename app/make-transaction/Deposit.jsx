@@ -11,9 +11,21 @@ import {
 
 export default function Deposit() {
   
+  const handleAddMoney = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget)
+
+    const result = await addMoney(formData);
+
+    if (!result?.success) {
+      console.warn(result?.message)
+    }
+  }
+
   return (
     <section>
-      <form action={addMoney}>
+      <form onSubmit={handleAddMoney}>
         <div className="grid w-full max-w-sm gap-6">
           <InputGroup>
             <InputGroupAddon><InputGroupText>€</InputGroupText></InputGroupAddon>

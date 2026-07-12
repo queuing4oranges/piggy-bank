@@ -7,10 +7,11 @@ import { revalidatePath } from "next/cache";
 export async function addMoney(formData) {
   const supabase = await createServerSupabaseClient();
   
+  if (!formData || formData.length < 1) return;
   const rawAmount = formData.get("amount") || null;
   const note = formData.get("note") || "";
   
-  const amount = parseFloat(rawAmount.replace(',', '.'));
+  const amount = parseFloat(rawAmount?.replace(',', '.'));
 
   const { data, error } = await supabase
     .from("transactions")
@@ -22,8 +23,10 @@ export async function addMoney(formData) {
     .single();
 
   if (error) {
-    console.error(error);
-    throw new Error("Failed to add transaction");
+    return {
+      success: false,
+      message: error.message
+    }
   }
 
   revalidatePath("/");
