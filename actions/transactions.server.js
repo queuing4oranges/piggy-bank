@@ -2,6 +2,7 @@
 
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export async function addMoney(formData) {
   const supabase = await createServerSupabaseClient();
@@ -25,6 +26,7 @@ export async function addMoney(formData) {
     throw new Error("Failed to add transaction");
   }
 
+  revalidatePath("/");
   redirect("/");
 
 }

@@ -1,34 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supaBaseClient';
+import React, { useState } from 'react';
 import { HugeiconsIcon } from "@hugeicons/react";
 import { TransactionHistoryIcon } from "@hugeicons/core-free-icons";
 
 
-export default function TransactionList() {
-  const [transactions, setTransactions] = useState([]);
+export default function TransactionList({ transactions }) {
   const [open, setOpen] = useState(false);
 
-  
-  useEffect(() =>{
-    fetchTransactions();
-  },[]);
-  
-  const fetchTransactions = async () => {
-    const { data, error } = await supabase
-      .from('transactions')
-      .select('*')
-      .order('timestamp', { ascending: false })
-
-    if (error) {
-      console.error(error);
-      return;
-    }
-
-    setTransactions(data || [])
-  }
-  
   const formatDate = (timestamp) => {
     if (!timestamp) return ''
 
