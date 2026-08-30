@@ -31,33 +31,34 @@ export async function addMoney(formData) {
 
   revalidatePath("/");
   redirect("/");
-
 }
 
-// export async function createAlbum(formData) {
-//   const supabase = await createServerSupabaseClient();
+export async function deductMoney(formData) {
+  const supabase = await createServerSupabaseClient();
 
-//   const place = formData.get("place") || null;
-//   const camera = formData.get("camera") || null;
-//   const film_type = formData.get("film") || null;
-//   const slug = formData.get("slug")?.trim() || null;
+  if (!formData || formData.length < 1) return;
+  const rawAmount = formData.get("amount") || null;
+  const note = formData.get("note") || "";
 
-//   // create album in table
-//   const { error } = await supabase
-//     .from('albums')
-//     .insert({
-//       place,
-//       camera,
-//       film_type,
-//       slug,
-//     })
-//     .select()
+  const amount = parseFloat(rawAmount?.replace(',', '.'));
 
-//   if (error) {
-//     console.error(error.message);
-//     return
-//   }
+  const { data, error } = await supabase
+    .from("transactions")
+    .insert({
+      amount: -Math.abs(Number(amount)),
+      note,
+    })
+    .select()
+    .single();
 
-//   // update UI
-//   revalidatePath("/albums/create");
-// }
+  if (error) {
+    return {
+      success: false,
+      message: error.message
+    }
+  }
+
+  revalidatePath("/");
+  redirect("/");
+
+}
