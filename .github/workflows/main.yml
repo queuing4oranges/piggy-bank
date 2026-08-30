@@ -10,7 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Ping Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY || secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
         run: |
-          curl -s \
-            "${{ secrets.SUPABASE_URL }}/rest/v1/transactions?select=id&limit=1" \
-            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}"
+          : "${SUPABASE_URL:?SUPABASE_URL secret is required}"
+          : "${SUPABASE_ANON_KEY:?SUPABASE_ANON_KEY secret is required}"
+
+          curl --silent --show-error --fail \
+            --retry 5 \
+            --retry-delay 5 \
+            --retry-all-errors \
+            "${SUPABASE_URL%/}/rest/v1/transactions?select=id&limit=1" \
+            -H "apikey: ${SUPABASE_ANON_KEY}"
